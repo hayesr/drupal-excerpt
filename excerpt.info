@@ -1,11 +1,4 @@
 ; $Id $
 name = Excerpt
-description = Allows users to manually control the teaser for a node.
+description = Allows authors to manually control the teaser for a node.
 core = 6.x
-
-; Information added by drupal.org packaging script on 2008-10-07
-version = "6.x-1.x-dev"
-core = "6.x"
-project = "excerpt"
-datestamp = "1223337892"
-
