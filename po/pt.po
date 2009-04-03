@@ -1,4 +1,4 @@
-# $Id: pt.po,v 1.2 2008/03/19 01:33:54 smk Exp $
+# $Id: pt.po,v 1.1.2.1 2007/08/03 09:59:25 magico Exp $
 #
 # Portuguese translation of Drupal (excerpt.module)
 # Copyright 2007 Fernando Silva <fernando.silva@openquest.pt>

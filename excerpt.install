@@ -1,5 +1,5 @@
 <?php
-/* $Id: excerpt.install,v 1.4 2008/03/20 02:42:38 smk Exp $ */
+/* $Id: excerpt.install,v 1.2.2.5 2008/03/20 01:04:08 smk Exp $ */
 
 /**
  * Implementation of hook_uninstall().

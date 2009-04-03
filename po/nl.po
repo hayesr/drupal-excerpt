@@ -1,4 +1,4 @@
-# $Id: nl.po,v 1.1 2007/08/29 14:52:34 keesje76 Exp $
+# $Id: nl.po,v 1.1.2.2 2008/03/19 01:35:59 smk Exp $
 
 msgid ""
 msgstr ""

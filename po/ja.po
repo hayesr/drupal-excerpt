@@ -1,4 +1,4 @@
-# $Id: ja.po,v 1.2 2007/04/24 12:05:54 imagine Exp $
+# $Id: ja.po,v 1.1.2.2 2008/03/19 01:35:59 smk Exp $
 # -----------------------------------------------------------------------------
 # Japanese translation of Drupal (excerpt.module)
 #

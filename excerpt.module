@@ -1,5 +1,5 @@
 <?php
-// $Id: excerpt.module,v 1.12 2008/03/27 11:54:15 smk Exp $
+// $Id: excerpt.module,v 1.6.4.3 2008/03/27 11:34:50 smk Exp $
 
 /**
  * Implementation of hook_nodeapi().
@@ -40,9 +40,13 @@ function excerpt_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 /**
  * Implementation of hook_form_alter().
  */
-function excerpt_form_alter(&$form, $form_state, $form_id) {
-  //print_r ($form);
-  if ($form_id == 'node_type_form') {
+function excerpt_form_alter($form_id, &$form) {
+  if ($form_id == 'node_type_form' && isset($form['identity']['type'])) {
+    $form['workflow']['excerpt'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Excerpt'),
+      '#weight' => 0,
+    );
     $form['workflow']['excerpt']['excerpt'] = array(
       '#type' => 'radios',
       '#title' => t('Teaser'),
@@ -50,59 +54,21 @@ function excerpt_form_alter(&$form, $form_state, $form_id) {
       '#options' => array(t('Auto-generated'), t('Manual excerpt')),
       '#description' => t('Choose whether the node teaser must be generated automatically or manually entered by the author.'),
     );
-    if (!module_exists('content')) {
     $form['workflow']['excerpt']['excerpt_wt'] = array(
       '#type' => 'weight',
       '#title' => t('Weight of Teaser field'),
       '#default_value' => variable_get('excerpt_wt_'. $form['#node_type']->type, 0),
     );
   }
-  }
-  else if (isset($form['type']) && $form['type']['#value'] .'_node_form' == $form_id && variable_get('excerpt_'. $form['type']['#value'], 1) == 1) {
+  else if (isset($form['type']) && $form['type']['#value'] .'_node_form' == $form_id && variable_get('excerpt_'. $form['type']['#value'], 1)) {
     $form['teaser'] = array(
       '#type' => 'textarea',
       '#title' => t('Teaser'),
       '#default_value' => $form['#node']->teaser,
       '#cols' => 60,
       '#rows' => 6,
-      '#weight' => module_exists('content') ? content_extra_field_weight($form['type']['#value'], 'teaser') : variable_get('excerpt_wt_'. $form['type']['#value'], 0),
+      '#weight' => variable_get('excerpt_wt_'. $form['type']['#value'], 0),
       '#description' => t('Enter an excerpt for this item. It will be shown on listing pages along with a <em>read more</em> link which leads to the full view. Leave empty to auto-generate one from the body.'),
     );
-
-    $form['body_field']['body']['#default_value'] = $form['#node']->body;
-
-    if(isset($form['body_field']['teaser_js'])) {
-      unset($form['body_field']['teaser_js']);
-      unset($form['body_field']['teaser_include']);
-
-      if(!empty($form['body_field']['#after_build'])) {
-        if ($id = array_search('node_teaser_js', $form['body_field']['#after_build'])) {
-          unset($form['body_field']['#after_build'][$id]);
-        }
-        if($id = array_search('node_teaser_include_verify', $form['body_field']['#after_build'])) {
-          unset($form['body_field']['#after_build'][$id]);
-        }
-      }
-    }
   }
 }
-
-
-/**
- * Implementation of hook_content_extra_fields.
- */
-function excerpt_content_extra_fields($type_name) {
-  $type = node_get_types('type', $type_name);
-  $extra = array();
-
-  if (variable_get('excerpt_'. $type_name, 1)) {
-    $extra['teaser'] = array(
-      'label' => t('Excerpt'),
-      'description' => t('Manual excerpt'),
-      'weight' => variable_get('excerpt_wt_'. $type_name, 0),
-    );
-  }
-
-  return $extra;
-}
-
