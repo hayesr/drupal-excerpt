@@ -1,5 +1,5 @@
 <?php
-/* $Id: excerpt.install,v 1.4 2008/03/20 02:42:38 smk Exp $ */
+/* $Id: excerpt.install,v 1.5 2009/03/31 01:32:53 weitzman Exp $ */
 
 /**
  * Implementation of hook_uninstall().
@@ -7,7 +7,6 @@
 function excerpt_uninstall() {
   // Delete all the excerpt variables and clear the variable cache.
   db_query("DELETE FROM {variable} WHERE name LIKE 'excerpt_%'");
-  cache_clear_all('variables', 'cache');
 }
 
 /**

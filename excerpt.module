@@ -1,5 +1,5 @@
 <?php
-// $Id: excerpt.module,v 1.12 2008/03/27 11:54:15 smk Exp $
+// $Id: excerpt.module,v 1.13 2009/03/31 01:25:09 weitzman Exp $
 
 /**
  * Implementation of hook_nodeapi().
@@ -41,7 +41,6 @@ function excerpt_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  * Implementation of hook_form_alter().
  */
 function excerpt_form_alter(&$form, $form_state, $form_id) {
-  //print_r ($form);
   if ($form_id == 'node_type_form') {
     $form['workflow']['excerpt']['excerpt'] = array(
       '#type' => 'radios',
