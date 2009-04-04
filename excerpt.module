@@ -1,5 +1,5 @@
 <?php
-// $Id: excerpt.module,v 1.6.4.3 2008/03/27 11:34:50 smk Exp $
+// $Id: excerpt.module,v 1.6.4.4 2009/04/04 04:05:03 hayesr Exp $
 
 /**
  * Implementation of hook_nodeapi().
@@ -61,10 +61,11 @@ function excerpt_form_alter($form_id, &$form) {
     );
   }
   else if (isset($form['type']) && $form['type']['#value'] .'_node_form' == $form_id && variable_get('excerpt_'. $form['type']['#value'], 1)) {
+    $form['#node']->teaser == node_teaser($form['#node']->body) ? $default = '' : $default = $form['#node']->teaser;
     $form['teaser'] = array(
       '#type' => 'textarea',
       '#title' => t('Teaser'),
-      '#default_value' => $form['#node']->teaser,
+      '#default_value' => $default,
       '#cols' => 60,
       '#rows' => 6,
       '#weight' => variable_get('excerpt_wt_'. $form['type']['#value'], 0),
